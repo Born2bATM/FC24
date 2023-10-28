@@ -10,8 +10,10 @@ K = 11
 goalStats = 85.5
  
 # using list comprehension to formulate elements
+# stats = [list([82,83,84,85,86,87]) for _ in range(K)]
 stats = [list([85,86,87]) for _ in range(K)]
 
+# price = [list([600,900,2100,6250,11100,17000]) for _ in range(K)]
 price = [list([6250,11100,17000]) for _ in range(K)]
  
 # using product() to get Combinations
