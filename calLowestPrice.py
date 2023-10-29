@@ -4,17 +4,36 @@
 # K Dice Combinations
 # Using list comprehension + product()
 from itertools import product
+import math
  
-# initializing K
-K = 11
-goalStats = 85.5
- 
-# using list comprehension to formulate elements
-# stats = [list([82,83,84,85,86,87]) for _ in range(K)]
-stats = [list([85,86,87]) for _ in range(K)]
+# initializing K (playersNum)
+playersNum = 11
+goalStats = 86
 
-# price = [list([600,900,2100,6250,11100,17000]) for _ in range(K)]
-price = [list([6250,11100,17000]) for _ in range(K)]
+def totalStats(listOfStats):
+    totalStats=0
+    for i in range(0,len(listOfStats)):
+        totalStats+=listOfStats[i]
+    return totalStats
+
+def calStat(listOfStats):
+    totalStat = totalStats(listOfStats)
+    AvgStat = totalStat/playersNum
+    totalBoostPoints=0
+    for i in range(0,len(listOfStats)):
+        if(listOfStats[i]>AvgStat):
+            totalBoostPoints += (listOfStats[i]-AvgStat)
+    return math.floor(round(totalStat+totalBoostPoints)/11)
+
+
+# Add up your initial, unrounded average player rating to the average points boost.
+# using list comprehension to formulate elements
+
+# stats = [list([82,83,84,85,86,87]) for _ in range(playersNum)]
+stats = [list([84,85,86,87]) for _ in range(playersNum)]
+
+# price = [list([600,900,2100,6250,11100,17000]) for _ in range(playersNum)]
+price = [list([1200,6000,11000,16500]) for _ in range(playersNum)]
  
 # using product() to get Combinations
 probStats = list(product(*stats))
@@ -27,11 +46,11 @@ caseAvgStats = list()
 for i in range(0,len(probPrice)):
     p = 0
     s = 0
-    for j in range(0,K):
+    for j in range(0,playersNum):
         p+=probPrice[i][j]
-        s+=probStats[i][j]
-    if s/K>=goalStats:
-        caseAvgStats.append(s/K);
+    finalStat = calStat(probStats[i])
+    if finalStat>=goalStats:
+        caseAvgStats.append(finalStat);
         totalPrice.append(p);
         caseStats.append(probStats[i])
         casePrice.append(probPrice[i])
