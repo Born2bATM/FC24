@@ -38,9 +38,7 @@ price = [list([1200,6000,11000,16500]) for _ in range(playersNum)]
 # using product() to get Combinations
 probStats = list(product(*stats))
 probPrice = list(product(*price))
-totalPrice = list()
 caseStats = product()
-casePrice = list()
 caseAvgStats = 0
 currentMinPrice = 999999
 
