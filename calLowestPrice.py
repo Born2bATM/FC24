@@ -39,9 +39,10 @@ price = [list([1200,6000,11000,16500]) for _ in range(playersNum)]
 probStats = list(product(*stats))
 probPrice = list(product(*price))
 totalPrice = list()
-caseStats = list()
+caseStats = product()
 casePrice = list()
-caseAvgStats = list()
+caseAvgStats = 0
+currentMinPrice = 999999
 
 for i in range(0,len(probPrice)):
     p = 0
@@ -50,13 +51,14 @@ for i in range(0,len(probPrice)):
         p+=probPrice[i][j]
     finalStat = calStat(probStats[i])
     if finalStat>=goalStats:
-        caseAvgStats.append(finalStat);
-        totalPrice.append(p);
-        caseStats.append(probStats[i])
-        casePrice.append(probPrice[i])
+        if currentMinPrice > p:
+            currentMinPrice = p
+            caseAvgStats = finalStat
+            caseStats = probStats[i]
+        
 
 # printing result
 
-print("Total price is " + str(min(totalPrice)))
-print(caseStats[totalPrice.index(min(totalPrice))])
-print(caseAvgStats[totalPrice.index(min(totalPrice))])
+print("Total price is " + str(currentMinPrice))
+print(caseStats)
+print(caseAvgStats)
